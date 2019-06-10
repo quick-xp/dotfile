@@ -84,30 +84,13 @@ alias git-remove='git rm $(git ls-files --deleted)'
 alias tag='ctags --langmap=RUBY:.rb --exclude="*.js" --exclude=".git*" -R .'
 
 #for mac
-alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
-#######
-#AWS
-#######
+#alias vi='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
+#alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
 #####
 #Z
 #####
 source ~/001_tool/z/z.sh
-
-#################
-#自動補完スクリプト
-#################
-
-#source ~/006_Setting/incr*.zsh
-#source ~/006_Setting/auto-fu.zsh
-#function zle-line-init () {
-#auto-fu-init
-#    }
-#    zle -N zle-line-init
-#    zstyle ':completion:*' completer _oldlist _complete
-
-# percol
 
 # history
 function percol_select_history() {

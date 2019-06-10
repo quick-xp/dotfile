@@ -39,19 +39,38 @@ set tabstop=2
 set shiftwidth=2
 set noswapfile
 
-
 " plugin
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc.vim', {
+      \ 'build' : {
+      \     'windows' : 'tools\\update-dll-mingw',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make',
+      \     'linux' : 'make',
+      \     'unix' : 'gmake',
+      \    },
+      \ }
 
 " ファイルオープンを便利に
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/neomru.vim'
 " Unite.vimで最近使ったファイルを表示できるようにする
 NeoBundle 'Shougo/neomru.vim'
 
 " ファイルをtree表示してくれる
 NeoBundle 'scrooloose/nerdtree'
+
+""""""""" Node
+NeoBundle 'Quramy/tsuquyomi'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'Townk/vim-autoclose'
+NeoBundle "Shougo/unite-outline"
+
+let g:tsuquyomi_completion_detail = 1
+autocmd FileType typescript setlocal completeopt-=menu,preview
+""""""""
+"" backspaceが効かない問題
+set backspace=indent,eol,start
 
 filetype plugin on
 filetype indent on
@@ -64,8 +83,6 @@ nnoremap <C-p> gT
 """"""""""""""""""""""""""""""
 
 " ----- color scheme ------
-"NeoBundle 'jpo/vim-railscasts-theme'
-"colorscheme railscasts
 NeoBundle 'nanotech/jellybeans.vim'
 
 " -----ctagsの非同期生成-----
@@ -121,30 +138,6 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string()
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-" inoremap <expr><CR>  neocomplcache#close_popup() . "\<CR>"
-" <TAB>: completion.
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-" inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-" inoremap <expr><C-y>  neocomplcache#close_popup()
-" inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-
 "neocomplecache ここまで
 
 
@@ -156,8 +149,6 @@ NeoBundle 'godlygeek/tabular'
 
 "マルチバイト対応の整形
 NeoBundle 'h1mesuke/vim-alignta'
-" -- でメソッドチェーン整形
-NeoBundle 'c9s/cascading.vim'
 
 " -----for rails-----
 filetype off
@@ -197,7 +188,7 @@ let g:vimrubocop_keymap = 0
 nnoremap ,rr <ESC>:RuboCop<CR>
 
 "--unite-rails--"
-"-- Usage [:Unite rails/xxx] 
+"-- Usage [:Unite rails/xxx]
 NeoBundle 'basyura/unite-rails'
 
 "-----vim-endwise-----
@@ -215,9 +206,6 @@ NeoBundle 'vim-scripts/AnsiEsc.vim'
 
 " 行末の半角スペースを可視化
 NeoBundle 'bronson/vim-trailing-whitespace'
-
-"coffee script
-NeoBundle 'kchmck/vim-coffee-script'
 
 " http://inari.hatenablog.com/entry/2014/05/05/231307
 """"""""""""""""""""""""""""""
@@ -266,13 +254,6 @@ nnoremap sQ :<C-u>bd<CR>
 "erb インデント
 NeoBundle 'othree/html5.vim'
 NeoBundle 'nono/vim-handlebars'
-"-----sphinx-------"
-NeoBundle 'Rykka/riv.vim'
-NeoBundle 'Rykka/InstantRst'
-let g:riv_fold_level = 1
-let g:riv_web_browser = '"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"'
-let g:riv_temp_path = 0
-let g:riv_html_code_hl_style = "friendly"
 
 "一時ファイルを無視"
 set directory=~/.vim/tmp
@@ -335,6 +316,5 @@ nnoremap :jr :<C-u>Unite<CR>rails/javascript router
 nnoremap :jt :<C-u>Unite<CR>rails/javascript template
 nnoremap :jv :<C-u>Unite<CR>rails/javascript view
 """"""""""
-
 
 NeoBundleCheck
