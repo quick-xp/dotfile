@@ -7,13 +7,7 @@ return {
         width = 50,
         position = "left",
         mappings = {
-          -- s プレフィックスの競合を解消
-          ["s"] = "none",
-          ["S"] = "open_vsplit",  -- 代わりに S で縦分割
-          -- sN/sP との競合を解消
-          ["P"] = "none",
-          ["N"] = "none",
-          -- プレビューは別キーに
+          ["S"] = "open_vsplit",
           ["<C-p>"] = { "toggle_preview", config = { use_float = true } },
         },
       },
