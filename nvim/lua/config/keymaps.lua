@@ -14,7 +14,10 @@ vim.keymap.set("n", "sv", "<cmd>vsplit<cr>", opts)
 vim.keymap.set("n", "sq", "<cmd>q<cr>", opts)
 
 -- ウィンドウズーム トグル（tmux の Ctrl+w z と同等）
-local zoom_is_zoomed = false
+local zoom_state = {
+  is_zoomed = false,
+  saved_layout = nil,
+}
 local NEOTREE_WIDTH = 70  -- explorer.lua と同じ値
 
 local function restore_neotree_width()
@@ -31,21 +34,29 @@ end
 vim.keymap.set("n", "sz", function()
   if vim.fn.winnr("$") == 1 then return end
 
-  if zoom_is_zoomed then
-    vim.cmd("wincmd =")
+  if zoom_state.is_zoomed then
+    -- 保存したレイアウトを復元
+    if zoom_state.saved_layout then
+      vim.cmd("silent! " .. zoom_state.saved_layout)
+    else
+      vim.cmd("wincmd =")
+    end
     restore_neotree_width()
-    zoom_is_zoomed = false
+    zoom_state.is_zoomed = false
+    zoom_state.saved_layout = nil
   else
+    -- 現在のレイアウトを保存してからズーム
+    zoom_state.saved_layout = vim.fn.winrestcmd()
+    zoom_state.is_zoomed = true
     vim.cmd("wincmd _")
     vim.cmd("wincmd |")
-    zoom_is_zoomed = true
   end
 end, { noremap = true, silent = true, desc = "Toggle zoom window" })
 
 -- tmux リサイズ時にズーム状態を維持
 vim.api.nvim_create_autocmd("VimResized", {
   callback = function()
-    if zoom_is_zoomed then
+    if zoom_state.is_zoomed then
       vim.cmd("wincmd _")
       vim.cmd("wincmd |")
     end
