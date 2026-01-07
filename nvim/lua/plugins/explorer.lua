@@ -7,6 +7,7 @@ return {
         width = 50,
         position = "left",
         mappings = {
+          ["s"] = "none",  -- sh/sj/sk/sl のために無効化
           ["S"] = "open_vsplit",
           ["<C-p>"] = { "toggle_preview", config = { use_float = true } },
         },
