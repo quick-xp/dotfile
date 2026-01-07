@@ -4,7 +4,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       window = {
-        width = 50,
+        width = 70,
         position = "left",
         mappings = {
           ["s"] = "none",  -- sh/sj/sk/sl のために無効化
