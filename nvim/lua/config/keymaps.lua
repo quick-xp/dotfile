@@ -13,6 +13,43 @@ vim.keymap.set("n", "ss", "<cmd>split<cr>", opts)
 vim.keymap.set("n", "sv", "<cmd>vsplit<cr>", opts)
 vim.keymap.set("n", "sq", "<cmd>q<cr>", opts)
 
+-- ウィンドウズーム トグル（tmux の Ctrl+w z と同等）
+-- レイアウトを保存して復元する方式
+local zoom_state = {
+  is_zoomed = false,
+  saved_layout = nil,
+}
+
+vim.keymap.set("n", "sz", function()
+  local win_count = vim.fn.winnr("$")
+  if win_count == 1 then
+    return
+  end
+
+  if zoom_state.is_zoomed and zoom_state.saved_layout then
+    -- 復元
+    vim.cmd("silent! " .. zoom_state.saved_layout)
+    zoom_state.is_zoomed = false
+    zoom_state.saved_layout = nil
+  else
+    -- レイアウト保存してズーム
+    zoom_state.saved_layout = vim.fn.winrestcmd()
+    zoom_state.is_zoomed = true
+    vim.cmd("wincmd _")
+    vim.cmd("wincmd |")
+  end
+end, { noremap = true, silent = true, desc = "Toggle zoom window" })
+
+-- tmux リサイズ時にズーム状態を維持
+vim.api.nvim_create_autocmd("VimResized", {
+  callback = function()
+    if zoom_state.is_zoomed then
+      vim.cmd("wincmd _")
+      vim.cmd("wincmd |")
+    end
+  end,
+})
+
 -- 検索ハイライト解除
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>", { noremap = true, silent = true })
 

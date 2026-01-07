@@ -11,6 +11,7 @@
 | `ss` / `<Space>-` | 横分割 |
 | `sv` / `<Space>\|` | 縦分割 |
 | `sq` / `<Space>wd` | ウィンドウを閉じる |
+| `sz` | ウィンドウズーム トグル（tmux の C-w z） |
 | `<C-w>=` | ウィンドウサイズを均等に |
 
 ## タブ操作
@@ -33,6 +34,11 @@
 | `<Space>bb` | バッファ一覧 |
 
 ## ファイルエクスプローラー（Neo-tree）
+
+**非表示設定**: `.git`, `.obsidian`, `.DS_Store`, `node_modules`
+（`.claude` は表示される）
+
+除外追加: `~/.config/nvim/lua/plugins/explorer.lua` の `never_show` に追記
 
 | キー | 説明 |
 |------|------|
@@ -65,6 +71,7 @@
 | キー | 説明 |
 |------|------|
 | `<Space>sf` | ファイル検索 |
+| `<Space>fr` | 最近開いたファイル |
 | `<Space>sg` | 全文検索（grep） |
 | `<Space>sb` | バッファ内検索 |
 | `<Space>sw` | カーソル下の単語を検索 |

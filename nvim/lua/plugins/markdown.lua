@@ -16,6 +16,17 @@ return {
     },
     keys = {
       { "<leader>mp", "<cmd>Markview splitToggle<cr>", desc = "Markdown Preview Split" },
+      {
+        "<leader>mP",
+        function()
+          vim.cmd("Markview splitToggle")
+          vim.defer_fn(function()
+            vim.cmd("wincmd l")  -- 右のプレビューに移動
+            vim.cmd("only")      -- 他のウィンドウを閉じる
+          end, 100)
+        end,
+        desc = "Markdown Preview Fullscreen",
+      },
       { "<leader>mt", "<cmd>Markview Enable<cr>", desc = "Markdown Enable Render" },
     },
   },
