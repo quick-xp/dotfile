@@ -23,6 +23,8 @@ return {
             ".obsidian",
             ".DS_Store",
             "node_modules",
+            "coverage",
+            "dist",
           },
           -- .claude は表示する（never_show に入れない）
         },
