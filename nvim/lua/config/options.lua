@@ -21,3 +21,14 @@ vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
 vim.opt.wrap = false
 vim.opt.signcolumn = "yes"
+
+-- スワップファイル無効化（警告回避）
+vim.opt.swapfile = false
+
+-- マウスドラッグ選択でクリップボードにコピー
+vim.opt.mouse = "a"
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.fn.setreg("+", vim.fn.getreg('"'))
+  end,
+})

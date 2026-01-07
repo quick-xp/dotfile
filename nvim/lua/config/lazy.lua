@@ -26,6 +26,8 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.ruby" },
     -- Formatting with prettier
     { import = "lazyvim.plugins.extras.formatting.prettier" },
+    -- Neo-tree file explorer
+    { import = "lazyvim.plugins.extras.editor.neo-tree" },
     -- import/override with your plugins
     { import = "plugins" },
   },

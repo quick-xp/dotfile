@@ -45,3 +45,5 @@ keymap("v", "K", ":m '<-2<CR>gv=gv", opts)
 
 -- ターミナルモードからの脱出
 keymap("t", "<Esc><Esc>", "<C-\\><C-n>", opts)
+
+-- Neo-tree（LazyVim デフォルトを使用、幅は lua/plugins/neo-tree.lua で設定）
