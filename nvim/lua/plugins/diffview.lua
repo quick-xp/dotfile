@@ -10,6 +10,29 @@ return {
     },
     config = function()
       local actions = require("diffview.actions")
+
+      -- デフォルト: 少し広めのコンテキスト (15行)
+      local is_full_context = false
+
+      vim.cmd("set diffopt+=context:15")
+
+      -- コンテキスト切り替えトグル
+      vim.keymap.set("n", "<leader>df", function()
+        is_full_context = not is_full_context
+        if is_full_context then
+          vim.cmd("set diffopt-=context:15")
+          vim.cmd("set diffopt+=context:99999")
+          vim.notify("Diff: ファイル全体表示", vim.log.levels.INFO)
+        else
+          vim.cmd("set diffopt-=context:99999")
+          vim.cmd("set diffopt+=context:15")
+          vim.notify("Diff: 通常表示", vim.log.levels.INFO)
+        end
+        -- 全ウィンドウで diff を再計算
+        vim.cmd("windo diffupdate")
+        vim.cmd("normal! zX")
+      end, { desc = "Toggle diff full context" })
+
       require("diffview").setup({
         enhanced_diff_hl = true,
         file_panel = {
