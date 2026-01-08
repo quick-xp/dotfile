@@ -40,3 +40,23 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     vim.fn.setpos(".", save_cursor)
   end,
 })
+
+-- oldfiles から無効なエントリを除外（shada 保存前）
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    local valid_files = {}
+    for _, file in ipairs(vim.v.oldfiles) do
+      -- 特殊バッファを除外
+      local is_special = file:match("neo%-tree")
+        or file:match("^snacks://")
+        or file:match("^octo://")
+        or file:match("^diffview://")
+        or file:match("%[%d+%]$")
+        or file:match("^/private/var/folders")  -- 一時ファイル
+      if not is_special and vim.fn.filereadable(file) == 1 then
+        table.insert(valid_files, file)
+      end
+    end
+    vim.v.oldfiles = valid_files
+  end,
+})
