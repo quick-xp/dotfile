@@ -1,0 +1,20 @@
+# lazygit 設定
+gui:
+  # マウスを無効化（Neovim との干渉防止）
+  mouseEvents: false
+  # 言語
+  language: "en"
+
+# キーバインド
+keybinding:
+  universal:
+    prevBlock: "h"
+    nextBlock: "l"
+    prevItem: "k"
+    nextItem: "j"
+    quit: "q"
+  files:
+    # s (stash) を無効化
+    stashAllChanges: "<disabled>"
+  stash:
+    stashStaged: "<disabled>"
