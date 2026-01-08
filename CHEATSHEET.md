@@ -157,6 +157,29 @@
 | `<Space>ca` | コメント追加 |
 | `<Space>pm` | PR をマージ |
 
+## デバッグ (DAP)
+
+### 使い方 (NestJS)
+
+```bash
+# ターミナルで先に起動
+cd ~/000_project/api_main
+npm run start:debug
+```
+
+Neovim でブレークポイント設置 → アタッチ
+
+| キー | 説明 |
+|------|------|
+| `<Space>db` | ブレークポイント設置/解除 |
+| `<Space>dc` | デバッグ開始 / 続行 |
+| `<Space>di` | ステップイン |
+| `<Space>do` | ステップオーバー |
+| `<Space>dO` | ステップアウト |
+| `<Space>dx` | 終了 |
+| `<Space>du` | DAP UI 表示切替 |
+| `<Space>dr` | REPL 表示 |
+
 ## Rails
 
 | キー | 説明 |

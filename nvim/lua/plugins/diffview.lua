@@ -43,7 +43,7 @@ return {
           },
           win_config = {
             position = "left",
-            width = 40,
+            width = 70,
           },
         },
         keymaps = {
