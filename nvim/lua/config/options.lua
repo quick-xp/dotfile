@@ -16,6 +16,10 @@ vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 
+-- 行番号（絶対表示）
+vim.opt.number = true
+vim.opt.relativenumber = false
+
 -- その他の推奨設定
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 8
