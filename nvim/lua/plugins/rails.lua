@@ -16,4 +16,16 @@ return {
 
   -- vim-bundler（Gemfile 関連）
   { "tpope/vim-bundler", event = "VeryLazy" },
+
+  -- Ruby LSP を Ruby ファイルのみに制限
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        ruby_lsp = {
+          filetypes = { "ruby", "eruby" },
+        },
+      },
+    },
+  },
 }
