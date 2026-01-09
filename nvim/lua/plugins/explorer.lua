@@ -11,6 +11,8 @@ return {
           ["s"] = "none",  -- sh/sj/sk/sl のために無効化
           ["S"] = "open_vsplit",
           ["<C-p>"] = { "toggle_preview", config = { use_float = true } },
+          ["<2-LeftMouse>"] = "open",
+          ["<LeftMouse>"] = "focus_node",
         },
       },
       filesystem = {
