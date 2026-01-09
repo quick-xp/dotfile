@@ -74,6 +74,9 @@ vim.opt.sidescrolloff = 8
 vim.opt.wrap = false
 vim.opt.signcolumn = "yes"
 
+-- キーマッピングのタイムアウト（s + 次のキー の猶予時間）
+vim.opt.timeoutlen = 1000  -- 1秒（デフォルト）
+
 -- スワップファイル無効化（警告回避）
 vim.opt.swapfile = false
 

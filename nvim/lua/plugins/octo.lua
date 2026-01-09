@@ -18,6 +18,7 @@ return {
       enable_builtin = true,
       default_remote = { "upstream", "origin" },
       picker = "telescope",
+      browser_command = "open -a Safari",  -- Safari で開く
       -- PR レビューの設定
       pull_requests = {
         order_by = {

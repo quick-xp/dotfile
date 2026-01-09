@@ -1,0 +1,28 @@
+#!/bin/bash
+# GitHub レビュー依頼一覧
+
+# 色定義
+CYAN='\033[36m'
+YELLOW='\033[33m'
+GREEN='\033[32m'
+DIM='\033[2m'
+RESET='\033[0m'
+
+result=$(gh search prs --review-requested=@me --state=open \
+  --json repository,title,createdAt,number \
+  --jq '.[] | select(.repository.nameWithOwner | startswith("quick-xp/") | not) | "\(.repository.nameWithOwner)\t\(.number)\t\(.title)\t\(.createdAt | fromdateiso8601 | strflocaltime("%m/%d %H:%M"))"')
+
+if [[ -z "$result" ]]; then
+  echo -e "${GREEN}✓ レビュー待ちの PR はありません${RESET}"
+  exit 0
+fi
+
+count=$(echo "$result" | wc -l | tr -d ' ')
+echo -e "${YELLOW}📋 レビュー待ち: ${count}件${RESET}\n"
+
+echo "$result" | while IFS=$'\t' read -r repo number title date; do
+  echo -e "${CYAN}${repo}${RESET} ${DIM}#${number}${RESET}"
+  echo -e "  ${title}"
+  echo -e "  ${DIM}${date}${RESET}"
+  echo ""
+done

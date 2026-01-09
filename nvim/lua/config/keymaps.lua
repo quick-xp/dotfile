@@ -4,6 +4,9 @@
 
 local opts = { noremap = true, silent = true }
 
+-- デフォルトの s (substitute) を無効化（s をプレフィックスとして使うため）
+vim.keymap.set("n", "s", "<Nop>", opts)
+
 -- ウィンドウ操作（s プレフィックス）
 vim.keymap.set("n", "sh", "<C-w>h", opts)
 vim.keymap.set("n", "sj", "<C-w>j", opts)
@@ -12,6 +15,9 @@ vim.keymap.set("n", "sl", "<C-w>l", opts)
 vim.keymap.set("n", "ss", "<cmd>split<cr>", opts)
 vim.keymap.set("n", "sv", "<cmd>vsplit<cr>", opts)
 vim.keymap.set("n", "sq", "<cmd>q<cr>", opts)
+vim.keymap.set("n", "s_", "<C-w>_", { noremap = true, silent = true, desc = "Maximize height" })
+vim.keymap.set("n", "s=", "<C-w>=", { noremap = true, silent = true, desc = "Equalize windows" })
+vim.keymap.set("n", "s|", "<C-w>|", { noremap = true, silent = true, desc = "Maximize width" })
 
 -- ウィンドウズーム トグル（tmux の Ctrl+w z と同等）
 local zoom_state = {

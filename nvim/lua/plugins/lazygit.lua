@@ -41,6 +41,13 @@ return {
         end,
         desc = "Lazygit",
       },
+      {
+        "<leader>gd",
+        function()
+          vim.cmd("!gh dash")
+        end,
+        desc = "GitHub Dashboard",
+      },
     },
   },
 }

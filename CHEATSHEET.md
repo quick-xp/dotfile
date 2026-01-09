@@ -73,7 +73,7 @@
 | `<Space><Space>` | ファイル検索（曖昧検索） |
 | `<Space>ff` | ファイル検索 |
 | `<Space>fr` | 最近開いたファイル |
-| `<Space>/` / `<Space>sg` | 全文検索（grep） |
+| `<Space>/` / `<Space>sg` | 全文検索（grep） → `Ctrl+g` で追加フィルタ |
 | `/` | 現在ファイル内検索 |
 | `n` / `N` | 次/前の検索結果 |
 | `s` | Flash（画面内ジャンプ） |
@@ -85,8 +85,12 @@
 | キー | 説明 |
 |------|------|
 | `<Space>gg` | Lazygit を開く |
-| `<Space>gd` | 現在ファイルの diff |
-| `<Space>gB` | Git blame |
+| `<Space>gd` | GitHub Dashboard (gh dash) |
+| `<Space>gh` | ファイルの Git 履歴（Diffview） |
+| `<Space>gH` | ファイルの Git 履歴（Telescope） |
+| `<Space>gB` | Git blame（詳細ポップアップ） |
+| `<Space>gb` | 行末 blame 表示トグル |
+| `<Space>hp` | Hunk プレビュー |
 | `]h` / `[h` | 次/前の変更箇所 |
 
 ### Lazygit 内操作
@@ -97,9 +101,25 @@
 | `j` / `k` | 選択（差分が右に表示） |
 | `W` | Diff モード |
 | `Enter` | 変更ファイル一覧 |
+| `e` | **ファイルを Vim で開く（現在の状態）** |
 | `q` | 終了 |
 
 ## GitHub (Octo + gh-dash)
+
+### レビュー待ち確認（ターミナル）
+
+```bash
+ghrev   # レビュー依頼一覧（リポジトリ、PR番号、タイトル、日時）
+```
+
+出力例:
+```
+📋 レビュー待ち: 3件
+
+quick-xp/repo-name #123
+  PRのタイトル
+  05/28 12:50
+```
 
 ### ターミナルで `gh dash` を起動
 
@@ -171,10 +191,10 @@ Neovim でブレークポイント設置 → アタッチ
 
 | キー | 説明 |
 |------|------|
-| `<Space>db` | ブレークポイント設置/解除 |
-| `<Space>dc` | デバッグ開始 / 続行 |
-| `<Space>di` | ステップイン |
-| `<Space>do` | ステップオーバー |
+| `<Space>db` / `F9` | ブレークポイント設置/解除 |
+| `<Space>dc` / `F5` | デバッグ開始 / 続行 |
+| `<Space>di` / `F10` | ステップイン |
+| `<Space>do` / `F8` | ステップオーバー |
 | `<Space>dO` | ステップアウト |
 | `<Space>dx` | 終了 |
 | `<Space>du` | DAP UI 表示切替 |

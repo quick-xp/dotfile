@@ -22,6 +22,20 @@ return {
         require("dapui").close()
       end, desc = "Terminate" },
       { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
+      -- コンソール/REPL を大きく表示
+      { "<leader>dF", function()
+        local dapui = require("dapui")
+        dapui.float_element("console", { width = 200, height = 50, enter = true })
+      end, desc = "Float Console (大)" },
+      { "<leader>dR", function()
+        local dapui = require("dapui")
+        dapui.float_element("repl", { width = 200, height = 50, enter = true })
+      end, desc = "Float REPL (大)" },
+      -- F キー（リーダーキーが効かない時用）
+      { "<F5>", function() require("dap").continue() end, desc = "Continue" },
+      { "<F8>", function() require("dap").step_over() end, desc = "Step Over" },
+      { "<F9>", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+      { "<F10>", function() require("dap").step_into() end, desc = "Step Into" },
     },
     config = function()
       local dap = require("dap")
@@ -121,6 +135,58 @@ return {
       vim.fn.sign_define("DapBreakpointCondition", { text = "🟡", texthl = "DiagnosticWarn", linehl = "DiffChange", numhl = "DiagnosticWarn" })
       vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "DiagnosticOk", linehl = "DiffAdd", numhl = "DiagnosticOk" })
       vim.fn.sign_define("DapBreakpointRejected", { text = "⭕", texthl = "DiagnosticError" })
+
+      -- VSCode の launch.json を読み込む（末尾カンマ対応）
+      local function load_vscode_launch()
+        local launch_path = vim.fn.getcwd() .. "/.vscode/launch.json"
+        if vim.fn.filereadable(launch_path) ~= 1 then
+          return
+        end
+
+        -- ファイル読み込み
+        local content = table.concat(vim.fn.readfile(launch_path), "\n")
+
+        -- 末尾カンマを除去（JSON5 → JSON 変換）
+        -- ,] → ] と ,} → } に変換
+        content = content:gsub(",%s*]", "]")
+        content = content:gsub(",%s*}", "}")
+
+        -- JSON パース
+        local ok, parsed = pcall(vim.json.decode, content)
+        if not ok or not parsed or not parsed.configurations then
+          return
+        end
+
+        -- DAP に設定を追加
+        for _, config in ipairs(parsed.configurations) do
+          local cfg_type = config.type
+          if cfg_type == "node" then
+            cfg_type = "pwa-node"
+          end
+
+          -- 設定を変換して追加
+          local dap_config = {
+            type = cfg_type,
+            request = config.request or "launch",
+            name = config.name,
+            cwd = config.cwd and config.cwd:gsub("%${workspaceFolder}", vim.fn.getcwd()) or vim.fn.getcwd(),
+            runtimeExecutable = config.runtimeExecutable,
+            runtimeArgs = config.runtimeArgs,
+            port = config.port,
+            sourceMaps = true,
+            skipFiles = { "<node_internals>/**", "node_modules/**" },
+            console = "integratedTerminal",
+          }
+
+          -- typescript/javascript の設定に追加
+          for _, lang in ipairs({ "typescript", "javascript" }) do
+            dap.configurations[lang] = dap.configurations[lang] or {}
+            table.insert(dap.configurations[lang], dap_config)
+          end
+        end
+      end
+
+      load_vscode_launch()
     end,
   },
 

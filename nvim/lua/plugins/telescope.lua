@@ -19,6 +19,17 @@ return {
         "%.min%.css",
         "%.map",
       },
+      mappings = {
+        i = {
+          -- Ctrl+g で結果をさらにフィルタ（fuzzy）
+          ["<C-g>"] = function(prompt_bufnr)
+            require("telescope.actions").to_fuzzy_refine(prompt_bufnr)
+          end,
+        },
+      },
     },
+  },
+  keys = {
+    { "<leader>gH", "<cmd>Telescope git_bcommits<cr>", desc = "File Git History (Telescope)" },
   },
 }

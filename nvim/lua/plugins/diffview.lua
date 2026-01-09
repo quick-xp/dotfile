@@ -33,8 +33,31 @@ return {
         vim.cmd("normal! zX")
       end, { desc = "Toggle diff full context" })
 
+      -- Diff のハイライト設定（追加=緑、削除=赤）濃いめ
+      vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#2d5a2d", fg = "#98c379" })
+      vim.api.nvim_set_hl(0, "DiffDelete", { bg = "#5a2d2d", fg = "#e06c75" })
+      vim.api.nvim_set_hl(0, "DiffChange", { bg = "#4a4a2d" })
+      vim.api.nvim_set_hl(0, "DiffText", { bg = "#5a5a2d", fg = "#e5c07b", bold = true })
+
+      -- diffview の sign 設定
+      vim.fn.sign_define("DiffviewDiffAddAsDelete", { text = "-", texthl = "DiffDelete" })
+      vim.fn.sign_define("DiffviewDiffDelete", { text = "-", texthl = "DiffDelete" })
+
       require("diffview").setup({
         enhanced_diff_hl = true,
+        signs = {
+          fold_closed = "",
+          fold_open = "",
+          done = "✓",
+        },
+        view = {
+          default = {
+            winbar_info = true,
+          },
+          merge_tool = {
+            layout = "diff3_mixed",
+          },
+        },
         file_panel = {
           listing_style = "tree",
           tree_options = {

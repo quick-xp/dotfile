@@ -58,6 +58,12 @@ return {
       vim.g.mkdp_browser = "safari"
       vim.g.mkdp_auto_close = 0
       vim.g.mkdp_combine_preview = 0
+      -- リアルタイム更新（0 = リアルタイム、1 = 保存時のみ）
+      vim.g.mkdp_refresh_slow = 0
+      -- カーソル移動でもスクロール同期
+      vim.g.mkdp_preview_options = {
+        sync_scroll_type = "middle",
+      }
     end,
     keys = {
       { "<leader>mb", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview (Browser)" },
