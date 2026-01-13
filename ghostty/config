@@ -1,0 +1,224 @@
+# Ghostty Configuration - tmux-like keybindings
+# ==============================================
+# Based on your .tmux.conf (prefix: Ctrl+w)
+
+# ================================================
+# Appearance
+# ================================================
+
+# Theme - Catppuccin Mocha (pastel dark theme)
+theme = Catppuccin Mocha
+
+# Font (use "ghostty +list-fonts" to see available fonts)
+font-family = "Menlo"
+font-size = 14
+
+# Window
+window-padding-x = 8
+window-padding-y = 8
+window-decoration = true
+macos-titlebar-style = tabs
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Background opacity (1.0 = fully opaque)
+background-opacity = 1.0
+
+# ================================================
+# General Settings
+# ================================================
+window-save-state = always
+mouse-hide-while-typing = true
+scrollback-limit = 50000
+confirm-close-surface = false
+
+# Split focus follows mouse (like tmux mouse-mode)
+focus-follows-mouse = true
+
+# ================================================
+# Global Keybinds (work even when Ghostty is not focused)
+# ================================================
+# Note: Requires Accessibility permission in System Preferences
+#       -> Privacy & Security -> Accessibility
+
+# Ctrl+p : Toggle window visibility (like iTerm2 hotkey window)
+# Note: May have issues on macOS where window doesn't unhide properly
+keybind = global:ctrl+p=toggle_visibility
+
+# Window/Tab numbering starts from 1 (like tmux base-index 1)
+# Note: Ghostty tabs are 1-indexed by default
+
+# ================================================
+# tmux-compatible Keybindings (prefix: Ctrl+w)
+# ================================================
+
+# --- Split Creation ---
+# Ctrl+w 2 : Split horizontally (down) - like tmux split-window -v
+keybind = ctrl+w>two=new_split:down
+
+# Ctrl+w 3 : Split vertically (right) - like tmux split-window -h
+keybind = ctrl+w>three=new_split:right
+
+# --- Split Navigation (vim-style) ---
+# Ctrl+w h/j/k/l : Move between splits
+keybind = ctrl+w>h=goto_split:left
+keybind = ctrl+w>j=goto_split:bottom
+keybind = ctrl+w>k=goto_split:top
+keybind = ctrl+w>l=goto_split:right
+
+# Ctrl+w Arrow : Move between splits (arrow keys)
+keybind = ctrl+w>left=goto_split:left
+keybind = ctrl+w>down=goto_split:bottom
+keybind = ctrl+w>up=goto_split:top
+keybind = ctrl+w>right=goto_split:right
+
+# Ctrl+w o / O : Cycle splits (previous/next)
+keybind = ctrl+w>o=goto_split:next
+keybind = ctrl+w>shift+o=goto_split:previous
+
+# --- Split Resize ---
+# Ctrl+w 4 : Resize up
+keybind = ctrl+w>four=resize_split:up,50
+
+# Ctrl+w 5 : Resize down
+keybind = ctrl+w>five=resize_split:down,50
+
+# Ctrl+w 6 : Resize left
+keybind = ctrl+w>six=resize_split:left,50
+
+# Ctrl+w 7 : Resize right
+keybind = ctrl+w>seven=resize_split:right,50
+
+# Ctrl+w H/J/K/L : Resize splits (Shift+hjkl)
+keybind = ctrl+w>shift+h=resize_split:left,25
+keybind = ctrl+w>shift+j=resize_split:down,25
+keybind = ctrl+w>shift+k=resize_split:up,25
+keybind = ctrl+w>shift+l=resize_split:right,25
+
+# --- Window (Tab) Management ---
+# Ctrl+w c : Create new tab (like tmux new-window)
+keybind = ctrl+w>c=new_tab
+
+# Ctrl+w 1 : Break pane equivalent - in Ghostty, use toggle zoom
+keybind = ctrl+w>one=toggle_split_zoom
+
+# Ctrl+w qq : Close tab (double tap to prevent accidental close)
+keybind = ctrl+w>q>q=close_tab
+
+# Ctrl+w , : Rename tab (like tmux prefix + ,)
+keybind = ctrl+w>comma=prompt_surface_title
+
+# Ctrl+w > / Ctrl+w < : Move tab right/left
+keybind = ctrl+w>shift+period=move_tab:1
+keybind = ctrl+w>shift+comma=move_tab:-1
+
+# Ctrl+w x : Close current split
+keybind = ctrl+w>x=close_surface
+
+# Ctrl+w n : Next tab
+keybind = ctrl+w>n=next_tab
+
+# Ctrl+w p : Previous tab
+keybind = ctrl+w>p=previous_tab
+
+# Ctrl+w z : Toggle split zoom (maximize/restore)
+keybind = ctrl+w>z=toggle_split_zoom
+
+# Ctrl+w = : Equalize split sizes
+keybind = ctrl+w>equal=equalize_splits
+
+# --- Tab Navigation by Number ---
+# Ctrl+w 0-9 for tabs (Ghostty uses 1-indexed)
+# Note: 1-7 are used for other functions, so using Shift+number
+keybind = ctrl+w>shift+one=goto_tab:1
+keybind = ctrl+w>shift+two=goto_tab:2
+keybind = ctrl+w>shift+three=goto_tab:3
+keybind = ctrl+w>shift+four=goto_tab:4
+keybind = ctrl+w>shift+five=goto_tab:5
+keybind = ctrl+w>shift+six=goto_tab:6
+keybind = ctrl+w>shift+seven=goto_tab:7
+keybind = ctrl+w>shift+eight=goto_tab:8
+keybind = ctrl+w>shift+nine=goto_tab:9
+
+# --- Scrollback (like mouse wheel) ---
+# Shift+PageUp/PageDown : Page scroll
+keybind = shift+page_up=scroll_page_up
+keybind = shift+page_down=scroll_page_down
+
+# Shift+Up/Down : Line scroll (like mouse wheel)
+keybind = shift+up=scroll_page_lines:-3
+keybind = shift+down=scroll_page_lines:3
+
+# Shift+Home/End : Jump to top/bottom
+keybind = shift+home=scroll_to_top
+keybind = shift+end=scroll_to_bottom
+
+# Ctrl+w [ / ] : Page scroll (tmux style, one-shot)
+keybind = ctrl+w>left_bracket=scroll_page_up
+keybind = ctrl+w>right_bracket=scroll_page_down
+
+# Option+[ / Option+] : Continuous scroll (hold Option, tap [ or ] repeatedly)
+keybind = alt+left_bracket=scroll_page_lines:-5
+keybind = alt+right_bracket=scroll_page_lines:5
+
+# --- Paste ---
+keybind = ctrl+w>shift+right_bracket=paste_from_clipboard
+
+# --- Config Reload ---
+# Ctrl+w Ctrl+r : Reload config
+keybind = ctrl+w>ctrl+r=reload_config
+
+# Ctrl+w r : Reload config (alternative)
+keybind = ctrl+w>r=reload_config
+
+# ================================================
+# Quick Access (without prefix)
+# ================================================
+
+# Ctrl++ / Ctrl+- : Font size
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size
+
+# Ctrl+Shift+T : New tab
+keybind = ctrl+shift+t=new_tab
+
+# Ctrl+Shift+N : New window
+keybind = ctrl+shift+n=new_window
+
+# Ctrl+Tab / Ctrl+Shift+Tab : Cycle tabs
+keybind = ctrl+tab=next_tab
+keybind = ctrl+shift+tab=previous_tab
+
+# ================================================
+# macOS-specific (Cmd-based shortcuts)
+# ================================================
+
+# Cmd+D : Split right (like iTerm2)
+keybind = super+d=new_split:right
+
+# Cmd+Shift+D : Split down
+keybind = super+shift+d=new_split:down
+
+# Cmd+W : Close split
+keybind = super+w=close_surface
+
+# Cmd+[ / Cmd+] : Previous/Next split
+keybind = super+left_bracket=goto_split:previous
+keybind = super+right_bracket=goto_split:next
+
+# Cmd+Enter : Toggle split zoom
+keybind = super+enter=toggle_split_zoom
+
+# Cmd+1-9 : Go to tab
+keybind = super+one=goto_tab:1
+keybind = super+two=goto_tab:2
+keybind = super+three=goto_tab:3
+keybind = super+four=goto_tab:4
+keybind = super+five=goto_tab:5
+keybind = super+six=goto_tab:6
+keybind = super+seven=goto_tab:7
+keybind = super+eight=goto_tab:8
+keybind = super+nine=goto_tab:9

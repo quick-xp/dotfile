@@ -36,6 +36,15 @@ fi
 ln -sf "$DOTFILE_DIR/nvim" ~/.config/nvim
 echo "  ~/.config/nvim -> $DOTFILE_DIR/nvim"
 
+# ghostty
+mkdir -p ~/.config/ghostty
+if [[ -f ~/.config/ghostty/config && ! -L ~/.config/ghostty/config ]]; then
+  mv ~/.config/ghostty/config ~/.config/ghostty/config.bak
+  echo "  ~/.config/ghostty/config をバックアップしました"
+fi
+ln -sf "$DOTFILE_DIR/ghostty/config" ~/.config/ghostty/config
+echo "  ~/.config/ghostty/config -> $DOTFILE_DIR/ghostty/config"
+
 # bin
 if [[ -d ~/bin && ! -L ~/bin ]]; then
   mv ~/bin ~/bin.bak
