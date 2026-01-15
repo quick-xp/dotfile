@@ -37,6 +37,12 @@ confirm-close-surface = false
 # Split focus follows mouse (like tmux mouse-mode)
 focus-follows-mouse = true
 
+# Ctrl+c : Send SIGINT (interrupt signal) to terminal
+keybind = ctrl+c=text:\x03
+
+# Cmd+c : Copy only when text is selected, otherwise passthrough
+keybind = performable:super+c=copy_to_clipboard
+
 # ================================================
 # Global Keybinds (work even when Ghostty is not focused)
 # ================================================
@@ -91,6 +97,12 @@ keybind = ctrl+w>six=resize_split:left,50
 # Ctrl+w 7 : Resize right
 keybind = ctrl+w>seven=resize_split:right,50
 
+# Ctrl+w 8 : Resize left (large)
+keybind = ctrl+w>eight=resize_split:left,200
+
+# Ctrl+w 9 : Resize right (large)
+keybind = ctrl+w>nine=resize_split:right,200
+
 # Ctrl+w H/J/K/L : Resize splits (Shift+hjkl)
 keybind = ctrl+w>shift+h=resize_split:left,25
 keybind = ctrl+w>shift+j=resize_split:down,25
@@ -110,9 +122,31 @@ keybind = ctrl+w>q>q=close_tab
 # Ctrl+w , : Rename tab (like tmux prefix + ,)
 keybind = ctrl+w>comma=prompt_surface_title
 
-# Ctrl+w > / Ctrl+w < : Move tab right/left
+# Ctrl+w > / Ctrl+w < : Move tab right/left (1 step)
 keybind = ctrl+w>shift+period=move_tab:1
 keybind = ctrl+w>shift+comma=move_tab:-1
+
+# Ctrl+e 1-8 : Go to tab by number
+keybind = ctrl+e>one=goto_tab:1
+keybind = ctrl+e>two=goto_tab:2
+keybind = ctrl+e>three=goto_tab:3
+keybind = ctrl+e>four=goto_tab:4
+keybind = ctrl+e>five=goto_tab:5
+keybind = ctrl+e>six=goto_tab:6
+keybind = ctrl+e>seven=goto_tab:7
+keybind = ctrl+e>eight=goto_tab:8
+
+# Ctrl+e [ ] : Move tab left/right (1 step)
+keybind = ctrl+e>left_bracket=move_tab:-1
+keybind = ctrl+e>right_bracket=move_tab:1
+
+# Ctrl+e - = : Move tab left/right (2 steps)
+keybind = ctrl+e>minus=move_tab:-2
+keybind = ctrl+e>equal=move_tab:2
+
+# Ctrl+e ; ' : Move tab left/right (3 steps)
+keybind = ctrl+e>semicolon=move_tab:-3
+keybind = ctrl+e>apostrophe=move_tab:3
 
 # Ctrl+w x : Close current split
 keybind = ctrl+w>x=close_surface

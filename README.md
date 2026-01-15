@@ -7,7 +7,9 @@
 ```
 dotfile/
 ├── .zshrc          # Zsh 設定 (Oh My Zsh + Powerlevel10k)
-├── .tmux.conf      # tmux 設定
+├── .tmux.conf      # tmux 設定（レガシー、Ghostty に移行済み）
+├── ghostty/        # Ghostty ターミナル設定
+│   └── config
 ├── bin/            # コマンドエイリアス（vim -> nvim）
 │   ├── vim -> nvim
 │   └── vi -> nvim
@@ -89,12 +91,33 @@ nvim
 - **z**: ディレクトリジャンプ（`zf` で fzf 連携）
 - **M2/ARM64 対応**: Apple Silicon Mac 対応
 
-### tmux
+### Ghostty (ターミナル)
 
-- **プレフィックス**: `Ctrl+W`
+tmux から移行。ネイティブのペイン分割・タブ機能を使用。
+
+- **プレフィックス**: `Ctrl+w`
 - **ペイン操作**: h/j/k/l で移動、2/3 で分割
-- **コピーモード**: vi 風キーバインド、pbcopy 連携
-- **focus-events**: Neovim の autoread に対応
+- **タブ操作**: c で新規、n/p で移動、qq で閉じる
+- **テーマ**: Catppuccin Mocha
+
+#### Karabiner-Elements 設定（重要）
+
+Ghostty で `Ctrl+c` を使うには、Karabiner の「PC-Style Copy/Paste/Cut」ルールの除外リストに Ghostty を追加する必要があります。
+
+**設定ファイル**: `~/.config/karabiner/karabiner.json`
+
+`bundle_identifiers` 配列に以下を追加:
+```json
+"^com\\.mitchellh\\.ghostty$"
+```
+
+追加場所（3箇所、Ctrl+c/v/x の各ルール内）:
+```json
+"^net\\.kovidgoyal\\.kitty$",
+"^com\\.mitchellh\\.ghostty$"   // ← これを追加
+```
+
+これを追加しないと、`Ctrl+c` が `Cmd+c`（コピー）に変換されてしまい、プロセス中断ができません。
 
 ### Neovim (LazyVim)
 
