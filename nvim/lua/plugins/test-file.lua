@@ -4,7 +4,7 @@ return {
     "LazyVim/LazyVim",
     keys = {
       {
-        "<leader>tt",
+        "<leader>tf",
         function()
           local file = vim.fn.expand("%:p")
           local dir = vim.fn.expand("%:p:h")

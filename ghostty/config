@@ -29,9 +29,10 @@ background-opacity = 1.0
 # ================================================
 # General Settings
 # ================================================
+term = xterm-256color
 window-save-state = always
 mouse-hide-while-typing = true
-scrollback-limit = 50000
+scrollback-limit = 10000000
 confirm-close-surface = false
 
 # Split focus follows mouse (like tmux mouse-mode)
