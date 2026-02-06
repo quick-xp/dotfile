@@ -80,10 +80,9 @@ if [[ -d "$HOME/.anyenv" ]]; then
   eval "$(anyenv init -)"
 fi
 
-# rbenv (anyenv 経由でない場合のフォールバック)
-if [[ -d "$HOME/.rbenv" ]] && ! command -v rbenv &>/dev/null; then
-  export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
-  eval "$(rbenv init -)"
+# rbenv
+if command -v rbenv &>/dev/null; then
+  eval "$(rbenv init - zsh)"
 fi
 
 # ===========================================
