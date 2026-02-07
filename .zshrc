@@ -37,9 +37,15 @@ source $ZSH/oh-my-zsh.sh
 # ===========================================
 typeset -U path PATH
 
-# Homebrew (Apple Silicon 優先)
-if runs_on_ARM64; then
-  export PATH="/opt/homebrew/bin:$PATH"
+# Homebrew
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  # macOS (Apple Silicon 優先)
+  if runs_on_ARM64; then
+    export PATH="/opt/homebrew/bin:$PATH"
+  fi
+elif [[ -d "/home/linuxbrew/.linuxbrew" ]]; then
+  # Linux (Linuxbrew)
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 export PATH="/usr/local/bin:$PATH"
 
@@ -65,7 +71,11 @@ export PATH="$HOME/.amplify/bin:$PATH"
 export PATH="$HOME/.rd/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="$HOME/Library/pnpm"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+else
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+fi
 export PATH="$PNPM_HOME:$PATH"
 
 # npm-global

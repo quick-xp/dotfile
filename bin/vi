@@ -1,1 +1,2 @@
-/opt/homebrew/bin/nvim
+#!/bin/sh
+exec nvim "$@"
