@@ -124,6 +124,16 @@ alias v1rspec='docker compose exec -e RAILS_ENV=test api bundle exec rspec'
 alias vim='nvim'
 alias vi='nvim'
 
+# Claude
+unalias claude-team 2>/dev/null
+function claude-team() {
+  if [ -n "$TMUX" ]; then
+    claude --teammate-mode tmux "$@"
+  else
+    tmux new-session -s claude-team "claude --teammate-mode tmux $*"
+  fi
+}
+
 # ===========================================
 # fzf 設定
 # ===========================================

@@ -26,10 +26,13 @@ cursor-style-blink = false
 # Background opacity (1.0 = fully opaque)
 background-opacity = 1.0
 
+# Option key behavior (left Option = Alt for tmux, right Option = macOS special chars)
+macos-option-as-alt = left
+
 # ================================================
 # General Settings
 # ================================================
-term = xterm-256color
+term = xterm-ghostty
 window-save-state = always
 mouse-hide-while-typing = true
 scrollback-limit = 10000000
@@ -182,9 +185,12 @@ keybind = ctrl+w>shift+nine=goto_tab:9
 keybind = shift+page_up=scroll_page_up
 keybind = shift+page_down=scroll_page_down
 
-# Shift+Up/Down : Line scroll (like mouse wheel)
-keybind = shift+up=scroll_page_lines:-3
-keybind = shift+down=scroll_page_lines:3
+# Shift+Enter : Claude Code の改行用（ESC + CR）
+keybind = shift+enter=text:\x1b\r
+
+# Shift+Up/Down : tmux / Claude Code に透過（以前はスクロールに使用）
+keybind = shift+up=unbind
+keybind = shift+down=unbind
 
 # Shift+Home/End : Jump to top/bottom
 keybind = shift+home=scroll_to_top
@@ -194,9 +200,8 @@ keybind = shift+end=scroll_to_bottom
 keybind = ctrl+w>left_bracket=scroll_page_up
 keybind = ctrl+w>right_bracket=scroll_page_down
 
-# Option+[ / Option+] : Continuous scroll (hold Option, tap [ or ] repeatedly)
-keybind = alt+left_bracket=scroll_page_lines:-5
-keybind = alt+right_bracket=scroll_page_lines:5
+# Note: Alt+[ / Alt+] は tmux のコピー/ペーストに譲渡
+# スクロールは Shift+PageUp/Down, Ctrl+W [ ] を使用
 
 # --- Paste ---
 keybind = ctrl+w>shift+right_bracket=paste_from_clipboard
