@@ -152,6 +152,12 @@ keybind = ctrl+e>equal=move_tab:2
 keybind = ctrl+e>semicolon=move_tab:-3
 keybind = ctrl+e>apostrophe=move_tab:3
 
+# Ctrl+e h/j/k/l : tmux pane navigation (sends prefix + hjkl)
+keybind = ctrl+e>h=text:\x17h
+keybind = ctrl+e>j=text:\x17j
+keybind = ctrl+e>k=text:\x17k
+keybind = ctrl+e>l=text:\x17l
+
 # Ctrl+w x : Close current split
 keybind = ctrl+w>x=close_surface
 
