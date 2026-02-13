@@ -32,7 +32,7 @@ macos-option-as-alt = left
 # ================================================
 # General Settings
 # ================================================
-term = xterm-ghostty
+term = xterm-256color
 window-save-state = always
 mouse-hide-while-typing = true
 scrollback-limit = 10000000
