@@ -127,12 +127,34 @@ alias vi='nvim'
 # Claude
 unalias claude-team 2>/dev/null
 function claude-team() {
+  local session_name="claude-$$"
+  local claude_args=()
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --session-name)
+        session_name="$2"
+        shift 2
+        ;;
+      -*)
+        claude_args+=("$1")
+        shift
+        ;;
+      *)
+        claude_args+=("$1")
+        shift
+        ;;
+    esac
+  done
+
   if [ -n "$TMUX" ]; then
-    claude --teammate-mode tmux "$@"
+    claude --teammate-mode tmux "${claude_args[@]}"
   else
-    tmux new-session -s claude-team "claude --teammate-mode tmux $*"
+    tmux new-session -s "$session_name" "claude --teammate-mode tmux ${claude_args[*]}"
   fi
 }
+# ct = claude-team のショートカット
+alias ct='claude-team'
 
 # ===========================================
 # fzf 設定
